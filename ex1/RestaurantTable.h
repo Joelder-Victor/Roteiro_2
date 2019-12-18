@@ -5,15 +5,12 @@ class RestaurantTable
 {
 private:
     Order order[MAX];
-    int numberTable;
+    int index;
 public:
-    RestaurantTable(int numberTable, Order order);
+    RestaurantTable();
     void addOrder(Order order);
     void clearOrders();
-    void calculateTotal();
-    void setNumberTable(int numberTable);
-    void setOrder(Order order);
-    int getNumberTable();
-    Order getOrder();
-    
+    double calculateTotal();
+
+    std::string toString();
 };

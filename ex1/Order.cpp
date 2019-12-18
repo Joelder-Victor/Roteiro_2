@@ -1,9 +1,12 @@
 #include"Order.h"
+#include <sstream>
+int Order:: orderNow = 1;
+using namespace std;
 Order::Order(){
-  
+    number=orderNow;
+    orderNow++;
 }
-Order::Order(int number,std::string description, int quantity, float price){
-    setNumber(number);
+Order::Order(std::string description, int quantity, double price):Order(){
     setDescription(description);
     setQuantity(quantity);
     setPrice(price);
@@ -18,7 +21,7 @@ void Order::setDescription(std::string description){
 void Order::setQuantity(int quantity){
     this-> quantity = quantity;
 }
-void Order::setPrice(float price){
+void Order::setPrice(double price){
     this-> price = price;
 }
 int Order::getNumber(){
@@ -30,6 +33,16 @@ std::string Order::getDescription(){
 int Order::getQuantity(){
     return quantity;
 }
-int Order::getPrice(){
+double Order::getPrice(){
     return price;
+}
+std::string Order::toString(){
+    stringstream ssNumber;
+    ssNumber << number;
+    stringstream ssQuantity;
+    ssQuantity << quantity;
+    stringstream ssPrice;
+    ssPrice << price;
+    return "Number: " +ssNumber.str() + ", Description: " + description + ", Quantity: "
+    + ssQuantity.str() + ", Price: " + ssPrice.str();
 }

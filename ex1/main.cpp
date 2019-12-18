@@ -1,20 +1,24 @@
 #include <iostream>
 #include "Order.h"
 #include "RestaurantTable.h"
-
+#include "HomemadeRestaurant.h"
 using namespace std;
 
 int main(void){
     
-    Order o1 = Order(1,"Juice",5,5.3);
-    Order o2 = Order(2,"Juice",2,5.3);
-    cout<<o1.getQuantity()<<endl;
+    Order o1 = Order("Juice",5,5.3);
+    Order o2 = Order("Juice",2,5.3);
+    Order o3 = Order("Cake",7,5.5);
 
-    RestaurantTable  t1 = RestaurantTable(1,o1);
+    HomemadeRestaurant r1;
 
-    t1.addOrder(o2);
+    r1.addToOrder(o1,1);
+    r1.addToOrder(o2,1);
+    r1.addToOrder(o3,1);   
 
-    cout<<t1.getOrder().getQuantity()<<endl;
+    r1.addToOrder(o1,2);
+    r1.addToOrder(o3,2);
 
+    cout<< r1.toString()<<endl;
 
 }

@@ -1,43 +1,47 @@
 #include "Order.h"
 #include "RestaurantTable.h"
-#include <iostream>
+#include <sstream>
 
 using namespace std;
 
-RestaurantTable::RestaurantTable(int numberTable,Order order){
-    setNumberTable(numberTable);
-    setOrder(order);
+RestaurantTable::RestaurantTable(){
+    index=0;
 }
 void RestaurantTable::addOrder(Order order){
-    int aux;
-    for ( Order o: this->order)
+    for ( int i=0;i<MAX;i++)
     {
-        cout<<order.getQuantity()<<endl;
-        cout<<o.getQuantity()<<endl;
-        if (order.getDescription()==o.getDescription()){
-           
-                aux=(o.getQuantity()+order.getQuantity());
-                o.setQuantity(aux);
+        if (this->order[i].getDescription() == order.getDescription()){
+                this->order[i].setQuantity((this->order[i].getQuantity()+order.getQuantity()));
+                return;
         }
     }
-  
+    this->order[index]=order;
+    index++;
 }
 void RestaurantTable::clearOrders(){
+    for (int i = 0; i < MAX; i++)
+    {
+       order[i].setQuantity(0);
+    }
     
 }
-void RestaurantTable::calculateTotal(){
-
+double RestaurantTable::calculateTotal(){
+    double total = 0;
+    for (int i = 0; i < MAX; i++)
+    {
+        total += order[i].getQuantity()*order[i].getPrice();
+    }
+    return total;
 }
-void RestaurantTable::setNumberTable(int numberTable){
+std::string RestaurantTable::toString(){
+    std::string output;
+    stringstream total;
+    for (int i = 0; i < index; i++)
+    {
+        output += order[i].toString() + "\n";
+    }
+    total << calculateTotal();
+    output += "Total: " + total.str();
 
-}
-void RestaurantTable::setOrder(Order order){
-
-
-}
-int RestaurantTable::getNumberTable(){
-
-}
-Order RestaurantTable::getOrder(){
-
+    return output;
 }
